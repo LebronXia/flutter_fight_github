@@ -10,6 +10,7 @@ import 'package:flutterfightgithub/data/net/interceptors/response_interceptors.d
 import 'package:flutterfightgithub/data/net/interceptors/token_interceotors.dart';
 import 'package:flutterfightgithub/data/net/result_data.dart';
 
+/// 全局的网络请求对象
 final HttpRequest httpRequest = new HttpRequest();
 
 class HttpRequest{
@@ -31,7 +32,7 @@ class HttpRequest{
 
     _dio.interceptors.add(new ErrorInterceptors(_dio));
 
-    _dio.interceptors.add(new ResponseInterceptors());
+   // _dio.interceptors.add(new ResponseInterceptors());
   }
 
 //  setBaseUrl(String baseUrl){
@@ -54,7 +55,7 @@ class HttpRequest{
 //    return await request(_baseUrl+url, param, null, new Options(method: "PUT", contentType: ContentType.text));
 //  }
 
-  request(url, params, Map<String, String> header, Options option,
+  Future<ResultData> request(url, params, Map<String, String> header, Options option,
       {noTip = false}) async{
 
     Map<String, dynamic> headers = new HashMap();
@@ -97,7 +98,22 @@ class HttpRequest{
     if (response.data is DioError) {
       return resultError(response.data);
     }
-    return response.data;
+
+    ResultData value;
+    try {
+      var header = response.headers[Headers.contentTypeHeader];
+      if ((header != null && header.toString().contains("text"))) {
+        value = new ResultData(response.data, true, Code.SUCCESS);
+      } else if (response.statusCode >= 200 && response.statusCode < 300) {
+        value = new ResultData(response.data, true, Code.SUCCESS,
+            headers: response.headers);
+      }
+    } catch (e) {
+      print(e.toString() + url);
+      value = new ResultData(response.data, false, response.statusCode,
+          headers: response.headers);
+    }
+    return value;
   }
 
   ///清除授权

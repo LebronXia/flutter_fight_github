@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfightgithub/data/repository/user_repository.dart';
 import 'package:flutterfightgithub/res/colors.dart';
 import 'package:flutterfightgithub/res/dimens.dart';
 import 'package:flutterfightgithub/ui/widget/login_widget.dart';
 import 'package:flutterfightgithub/utils/utils.dart';
+import 'package:flutterfightgithub/view_model/login_model.dart';
 import 'package:flutterfightgithub/widget/round_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _controllerName = new TextEditingController();
   TextEditingController _controllerPwd = new TextEditingController();
+  UserRepository userRepository = new UserRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +28,11 @@ class _LoginPageState extends State<LoginPage> {
               LoginTopPanel(),
 
               new Container(
+                margin: const EdgeInsets.only(top: 40.0),
                 child: Image.asset(
                     Utils.getImgPath("pic_denglu_toux"),
-                    width: 130,
-                    height: 130,
+                    width: 100,
+                    height: 100,
                     fit: BoxFit.fitWidth,
                     colorBlendMode: BlendMode.srcIn,
                 ),
@@ -65,6 +70,8 @@ class _LoginPageState extends State<LoginPage> {
                               text: "登录",
                               margin: EdgeInsets.only(top: 20),
                               onPressed: (){
+                                _userLogin();
+
                               },
                             ),
                             new Container(
@@ -90,5 +97,32 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void _userLogin() {
+    String username = _controllerName.text;
+    String password = _controllerPwd.text;
+    LoginModel _loginModel = Provider.of<LoginModel>(context);
+
+    if(username.isEmpty || username.length < 6){
+      Utils.showSnackBar(context, username.isEmpty ? "请输入用户名" : "用户名至少6位");
+      return;
+    }
+
+    if(password.isEmpty || password.length < 6){
+      Utils.showSnackBar(context, password.isEmpty ? "请输入密码" : "密码至少6位");
+      return;
+    }
+
+    _loginModel.login(username, password)
+        .then((value) {
+          if(value){
+            Utils.showSnackBar(context, "登录成功～");
+            //Navigator.of(context).pop(true);
+          } else {
+            Utils.showSnackBar(context, "登录失败～");
+          }
+    });
+
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfightgithub/ui/page/login_page.dart';
+import 'package:flutterfightgithub/utils/storage_manager.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageManager.init();
   runApp(MyApp());
 }
 

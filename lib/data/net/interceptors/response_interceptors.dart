@@ -6,7 +6,7 @@ import 'package:flutterfightgithub/data/net/result_data.dart';
 class ResponseInterceptors extends InterceptorsWrapper{
 
   @override
-  Future onResponse(Response response) {
+  onResponse(Response response) {
     RequestOptions option = response.request;
     var value;
     try {

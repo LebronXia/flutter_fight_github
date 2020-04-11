@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutterfightgithub/common/config.dart';
 import 'package:flutterfightgithub/utils/sputils.dart';
+import 'package:flutterfightgithub/utils/storage_manager.dart';
 
 /**
  * token拦截器
@@ -9,7 +10,7 @@ class TokenInterceptors extends InterceptorsWrapper{
   String _token;
 
   @override
-  Future onRequest(RequestOptions options) async {
+ onRequest(RequestOptions options) async {
     //授权码
     if (_token == null) {
       var authorizationCode = await getAuthorization();
@@ -22,13 +23,13 @@ class TokenInterceptors extends InterceptorsWrapper{
   }
 
   @override
-  Future onResponse(Response response) async{
+  onResponse(Response response) async{
     try {
       var responseJson = response.data;
       if (response.statusCode == 201 && responseJson["token"] != null) {
         _token = 'token ' + responseJson["token"];
         //获取成功后SpUtil添加token保存
-        await SpUtils.save(Config.TOKEN_KEY, _token);
+        StorageManager.sharedPreferences.setString(Config.TOKEN_KEY, _token);
       }
     } catch (e) {
       print(e);
@@ -40,15 +41,15 @@ class TokenInterceptors extends InterceptorsWrapper{
   clearAuthorization() {
     this._token = null;
     //SpUtil移除Token
-    SpUtils.remove(Config.TOKEN_KEY);
+    StorageManager.sharedPreferences.remove(Config.TOKEN_KEY);
     //releaseClient();
   }
 
   ///获取授权token
   getAuthorization() async {
-    String token = await SpUtils.get(Config.TOKEN_KEY);
+    String token = StorageManager.sharedPreferences.get(Config.TOKEN_KEY);
     if (token == null) {
-      String basic = await SpUtils.get(Config.USER_BASIC_CODE);
+      String basic = StorageManager.sharedPreferences.get(Config.USER_BASIC_CODE);
       if (basic == null) {
         //提示输入账号密码
       } else {
