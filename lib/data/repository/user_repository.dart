@@ -31,11 +31,12 @@ class UserRepository{
 
     var res = await httpRequest.request(GithubApi.AUTHORIZATION, json.encode(requestParams),
         null, new Options(method: "post"));
+    var resultData;
     if (res != null && res.result) {
-      ResultData resultData = await getUserInfo(null);
+       resultData = await getUserInfo(null);
     }
 
-    return DataResult(ResultData, res.result);
+    return DataResult(resultData, res.result);
   }
 
   ///获取个人信息
@@ -44,11 +45,13 @@ class UserRepository{
     if(userName == null){
       res = await httpRequest.request(GithubApi.MYUSERINFO, null, null, null);
     } else {
-      res = await httpRequest.request(GithubApi.MYUSERINFO, null, null, null);
+      res = await httpRequest.request(GithubApi.getUserInfo(userName), null, null, null);
     }
     if(res != null && res.result){
       User user = User.fromJson(res.data);
-      
+      return DataResult(user, true);
+    } else {
+      return DataResult(res.data, false);
     }
   }
 }

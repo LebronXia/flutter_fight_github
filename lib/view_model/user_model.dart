@@ -12,6 +12,11 @@ class UserModel extends ChangeNotifier{
 
   bool get hasUser => user != null;
 
+  UserModel(){
+    var userMap = StorageManager.localStorage.getItem(XUser);
+    _user = userMap != null ? User.fromJson(userMap) : null;
+  }
+
   saveUser(User user){
     _user = user;
     notifyListeners();

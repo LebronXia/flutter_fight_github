@@ -36,6 +36,7 @@ dependencies:
   connectivity: 0.4.6+1   #网络判断
   event_bus:  ^1.1.0
   localstorage: ^2.0.0    # 本地json对象存储
+  flustars: ^0.2.5+1
 
 dev_dependencies:
   flutter_test:
