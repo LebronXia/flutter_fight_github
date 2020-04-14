@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutterfightgithub/data/model/user.dart';
+import 'package:flutterfightgithub/data/models/user.dart';
 import 'package:flutterfightgithub/utils/storage_manager.dart';
 
 class UserModel extends ChangeNotifier{

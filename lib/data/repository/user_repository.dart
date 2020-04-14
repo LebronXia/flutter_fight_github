@@ -7,7 +7,7 @@ import 'package:flutterfightgithub/data/api/apis.dart';
 import 'package:flutterfightgithub/data/net/HttpRequest.dart';
 import 'package:flutterfightgithub/data/net/data_result.dart';
 import 'package:flutterfightgithub/data/net/result_data.dart';
-import 'package:flutterfightgithub/data/model/user.dart';
+import 'package:flutterfightgithub/data/models/user.dart';
 import 'package:flutterfightgithub/utils/storage_manager.dart';
 
 class UserRepository{

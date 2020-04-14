@@ -9,6 +9,8 @@ class Config{
   static const String CLIENT_ID = 'f1be507d4f35189e6a86';
   static const String CLIENT_SECRET ='e2d5a8159e31c09ca61d89faa65a793284ee2a5d';
 
+  static const PAGE_SIZE = 20;
+
 
   //SharedPreferences的key
 

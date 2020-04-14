@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -60,6 +61,34 @@ class Utils {
             ),
           );
         }
+    );
+  }
+
+  //圆形图片
+  static Widget gmAvatar(String url,{
+    //具名参数   foo({int x, int y})
+    double width = 30,
+    double height,
+    BoxFit fit,
+    BorderRadius borderRadius,
+  }){
+    var placeholder = Image.asset(
+      "assets/images/avatar-default.png",
+      width: width,
+      height: height,
+    );
+
+    //圆角矩形裁剪
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(2),  ////圆角半径
+      child: CachedNetworkImage(
+        imageUrl: url,
+        width: width,
+        height: height,
+        fit: fit,
+        placeholder: (context, url) => placeholder,
+        errorWidget: (context, url, error) => placeholder,
+      ),
     );
   }
 

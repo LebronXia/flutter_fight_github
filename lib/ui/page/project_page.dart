@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfightgithub/data/models/repo.dart';
+import 'package:flutterfightgithub/provider/provider_widget.dart';
+import 'package:flutterfightgithub/ui/widget/repo_item.dart';
+import 'package:flutterfightgithub/view_model/project_model.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-
+///自己的项目仓库
 class ProjectPage extends StatefulWidget {
   @override
   _ProjectPageState createState() => new _ProjectPageState();
@@ -9,10 +14,27 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('项目'),
-      ),
+    return ProviderWidget<ProjectModel>(
+      model: ProjectModel(),
+      builder: (BuildContext context, ProjectModel model, Widget child) {
+
+        return SmartRefresher(
+          controller: model.refreshController,
+          header: WaterDropHeader(),
+          footer: ClassicFooter(),
+          onRefresh: model.refresh,
+          onLoading: model.loadMore,
+          //???
+          enablePullUp: true,
+          child: ListView.builder(
+            itemCount: model.list.length,
+              itemBuilder: (context, index){
+              Repo repo = model.list[index];
+                  return  RepoItem(repo);
+              }
+          ),
+        );
+      },
     );
   }
 }

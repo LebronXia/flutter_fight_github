@@ -16,14 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    var userModel = Provider.of<UserModel>(context, listen: false);
-    Future.delayed(Duration(microseconds: 5000), (){
-      if(userModel.hasUser) {
-        Navigator.of(context).pushNamed(RouteName.main);
-      } else {
-        Navigator.of(context).pushNamed(RouteName.login);
-      }
-    });
+    countDown();
   }
 
   @override
@@ -36,5 +29,18 @@ class _SplashPageState extends State<SplashPage> {
         height: double.infinity,
       ),
     );
+  }
+
+  void countDown() {
+    var userModel = Provider.of<UserModel>(context, listen: false);
+    Future.delayed(Duration(seconds: 3), (){
+      //跳转并关闭当前页面
+      if(userModel.hasUser) {
+        Navigator.of(context).pushReplacementNamed(RouteName.main);
+      } else {
+        Navigator.of(context).pushReplacementNamed(RouteName.login);
+      }
+    });
+
   }
 }
