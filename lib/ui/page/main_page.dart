@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfightgithub/ui/page/dynamic_page.dart';
 import 'package:flutterfightgithub/ui/page/home_page.dart';
+import 'package:flutterfightgithub/ui/page/issue_page.dart';
 import 'package:flutterfightgithub/ui/page/project_page.dart';
 import 'package:flutterfightgithub/utils/utils.dart';
 
@@ -60,7 +61,7 @@ class TabBarViewLayout extends StatelessWidget{
           return DynamicPage();
           break;
         case "issues":
-          return HomePage();
+          return IssuePage();
           break;
         default:
           return Container();

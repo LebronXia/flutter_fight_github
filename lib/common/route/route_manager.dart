@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfightgithub/ui/page/home_page.dart';
 import 'package:flutterfightgithub/ui/page/login_page.dart';
-import 'package:flutterfightgithub/ui/page/mian_page.dart';
+import 'package:flutterfightgithub/ui/page/main_page.dart';
 import 'package:flutterfightgithub/ui/page/splash_page.dart';
 import 'package:flutterfightgithub/widget/page_route_anim.dart';
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutterfightgithub/common/config.dart';
+import 'dart:convert' as convert;
 
 /**
  * 日志打印拦截器
@@ -47,7 +48,7 @@ class LogsInterceptors extends InterceptorsWrapper {
   onResponse(Response response) async {
     if (Config.DEBUG) {
       if (response != null) {
-        print('返回参数: ' + response.toString());
+        print('返回参数: ' + convert.jsonEncode(response.data));
       }
     }
     if (response.data is Map || response.data is List) {

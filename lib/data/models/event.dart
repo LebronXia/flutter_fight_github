@@ -1,6 +1,6 @@
 import 'package:flutterfightgithub/data/models/repo.dart';
 
-class event {
+class Event {
   String id;
   String type;
   Actor actor;
@@ -9,7 +9,7 @@ class event {
   bool public;
   String createdAt;
 
-  event(
+  Event(
       {this.id,
         this.type,
         this.actor,
@@ -18,7 +18,7 @@ class event {
         this.public,
         this.createdAt});
 
-  event.fromJson(Map<String, dynamic> json) {
+  Event.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     type = json['type'];
     actor = json['actor'] != null ? new Actor.fromJson(json['actor']) : null;

@@ -24,6 +24,9 @@ class GithubApi{
     return "${host}users/$userName/received_events";
   }
 
+  ///WanAndroid API
+  static const String ARTICLE_LIST = "http://www.wanandroid.com/article/list";
+
   ///处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]) {
     if (page != null) {
@@ -35,6 +38,17 @@ class GithubApi{
     } else {
       return "";
     }
+  }
+
+  static String getPath({String path: '', int page, String resType: 'json'}) {
+    StringBuffer sb = new StringBuffer(path);
+    if (page != null) {
+      sb.write('/$page');
+    }
+    if (resType != null && resType.isNotEmpty) {
+      sb.write('/$resType');
+    }
+    return sb.toString();
   }
 
 }

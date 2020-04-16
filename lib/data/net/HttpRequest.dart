@@ -2,6 +2,8 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutterfightgithub/common/config.dart';
 import 'package:flutterfightgithub/data/net/code.dart';
 import 'package:flutterfightgithub/data/net/interceptors/ErrorInterceptors.dart';
 import 'package:flutterfightgithub/data/net/interceptors/LogsInterceptors.dart';
@@ -102,7 +104,11 @@ class HttpRequest{
       return resultError(response.data);
     }
 
-    var jsonString = convert.jsonEncode(response.data);
+//    if(Config.DEBUG){
+//      var jsonString = convert.jsonEncode(response.data);
+//      debugPrint(jsonString);
+//    }
+
 
     ResultData value;
     try {
