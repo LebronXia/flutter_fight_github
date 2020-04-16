@@ -16,10 +16,6 @@ class _DynamicPageState extends State<DynamicPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-//    var model = Provider.of<DynamicModel>(context, listen: false);
-//    model.refresh();
-
   }
   @override
   Widget build(BuildContext context) {
