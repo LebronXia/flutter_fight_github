@@ -41,6 +41,7 @@ class UserRepository{
 
   ///获取个人信息
   static getUserInfo(userName) async{
+
     var res;
     if(userName == null){
       res = await httpRequest.request(GithubApi.MYUSERINFO, null, null, null);
