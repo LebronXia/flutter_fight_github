@@ -9,6 +9,8 @@ import 'package:flutterfightgithub/data/net/interceptors/header_interceptors.dar
 import 'package:flutterfightgithub/data/net/interceptors/response_interceptors.dart';
 import 'package:flutterfightgithub/data/net/interceptors/token_interceotors.dart';
 import 'package:flutterfightgithub/data/net/result_data.dart';
+import 'dart:convert' as convert;
+
 
 /// 全局的网络请求对象
 final HttpRequest httpRequest = new HttpRequest();
@@ -90,6 +92,7 @@ class HttpRequest{
 
     //网络请求
     Response response;
+
     try {
       response = await _dio.request(url, data: params, options: option);
     } on DioError catch (e) {
@@ -98,6 +101,8 @@ class HttpRequest{
     if (response.data is DioError) {
       return resultError(response.data);
     }
+
+    var jsonString = convert.jsonEncode(response.data);
 
     ResultData value;
     try {

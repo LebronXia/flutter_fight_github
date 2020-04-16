@@ -23,4 +23,13 @@ class HomeRepository{
          return DataResult(res.data, false);
       }
   }
+
+  //动态列表
+  static Future<DataResult> getDynamic(userName, page) async{
+    await Future.delayed(Duration(seconds: 1));
+    var res = await httpRequest.get(GithubApi.getEventReceived(userName) + GithubApi.getPageParams("?", page), null);
+    if (res != null && res.result){
+
+    }
+  }
 }
