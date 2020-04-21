@@ -2,6 +2,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutterfightgithub/ui/page/article_page.dart';
 import 'package:flutterfightgithub/ui/page/dynamic_page.dart';
 import 'package:flutterfightgithub/ui/page/home_page.dart';
 import 'package:flutterfightgithub/ui/page/issue_page.dart';

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class XColors{
 
+  static const Color divider = Color(0xffe5e5e5);
+
   static const Color gray_33 = Color(0xFF333333); //51
   static const Color gray_66 = Color(0xFF666666); //102
   static const Color gray_99 = Color(0xFF999999); //153

@@ -17,7 +17,7 @@ class Article {
   Article.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         originId = json['originId'],
-        title = json['title'],
+        title = json['chapterName'],
         desc = json['desc'],
         author = json['author'],
         link = json['link'],

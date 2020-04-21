@@ -119,6 +119,12 @@ class Utils {
     );
   }
 
+  ///格式根据时间搓
+  static String formatByInt(int timestamp) {
+    var date = new DateTime.fromMicrosecondsSinceEpoch(timestamp * 1000);
+    return getNewsTimeStr(date);
+  }
+
   ///日期格式转换
   static String getNewsTimeStr(DateTime date) {
     debugPrint(date.toIso8601String());

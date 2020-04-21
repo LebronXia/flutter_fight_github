@@ -3,6 +3,8 @@ import 'package:flutterfightgithub/common/config.dart';
 class GithubApi{
   static const String host = "https://api.github.com/";
 
+  static const String wanAndroidHost = "http://www.wanandroid.com/";
+
   //获取授权
   static const String AUTHORIZATION = "${host}authorizations";
 
@@ -24,8 +26,33 @@ class GithubApi{
     return "${host}users/$userName/received_events";
   }
 
+  ///趋势 get
+  static trendingApi(since, languageType) {
+    if (languageType != null) {
+      return "https://guoshuyu.cn/github/trend/list?languageType=$languageType&since=${since}";
+    }
+    return "https://guoshuyu.cn/github/trend/list?since=$since";
+  }
+
+  ///Trending 趋势
+  static getTrending(since, languageType){
+    if (languageType != null) {
+      return "${host}trending/$languageType?since=$since";
+    }
+    return "${host}trending?since=$since";
+  }
+
   ///WanAndroid API
-  static const String ARTICLE_LIST = "http://www.wanandroid.com/article/list";
+  static const String ARTICLE_LIST = "${wanAndroidHost}article/list";
+
+  ///最新项目  0
+  static const String NEW_ARTICLE = "${wanAndroidHost}article/listproject";
+
+  ///推荐项目列表   402
+  static const String PROJECT_LIST = "${wanAndroidHost}project/list";
+
+  ///查看某个公众号历史数据    int _id = 408;
+  static const String WXARTICLE_LIST = "${wanAndroidHost}wxarticle/list";
 
   ///处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]) {

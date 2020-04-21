@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfightgithub/common/i10n/localization_intl.dart';
 import 'package:flutterfightgithub/data/models/repo.dart';
+import 'package:flutterfightgithub/res/style.dart';
 import 'package:flutterfightgithub/utils/utils.dart';
 
 class RepoItem extends StatefulWidget {
@@ -128,7 +129,7 @@ class _RepoItemState extends State<RepoItem> {
                       .toString()
                       .padRight(paddingWidth)),
 
-              Icon(Icons.info_outline), //我们的自定义图标
+              Icon(MyIcons.REPOS_ITEM_FORK), //我们的自定义图标
               Text(widget.repo.forks_count.toString().padRight(paddingWidth)),
             ];
 
