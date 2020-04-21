@@ -37,6 +37,7 @@ class ProjectModel extends ChangeNotifier{
 
    // _isLoading = true;
     _viewStatus = MyLoadStatus.loading;
+    notifyListeners();
 
     try{
       _currentPageNum = pageNumFirst;
@@ -65,6 +66,7 @@ class ProjectModel extends ChangeNotifier{
             _isLoading = false;
             _viewStatus = MyLoadStatus.success;
           }
+
           notifyListeners();
           return res.data;
         }

@@ -9,6 +9,7 @@ class MyIcons{
   static const IconData pageEmpty = IconData(0xe63c, fontFamily: MyIcons.FONT_FAMILY);
   static const IconData pageError = IconData(0xe600, fontFamily: MyIcons.FONT_FAMILY);
   static const IconData pageNetworkError = IconData(0xe678, fontFamily: MyIcons.FONT_FAMILY);
+  static const IconData trend_icon = const IconData(0xe818, fontFamily: MyIcons.FONT_FAMILY);
 }
 
 /// 间隔

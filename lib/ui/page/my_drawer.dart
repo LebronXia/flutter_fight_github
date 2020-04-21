@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfightgithub/common/i10n/localization_intl.dart';
 import 'package:flutterfightgithub/common/route/route_manager.dart';
+import 'package:flutterfightgithub/res/style.dart';
 import 'package:flutterfightgithub/utils/utils.dart';
 import 'package:flutterfightgithub/view_model/user_model.dart';
 import 'package:provider/provider.dart';
@@ -35,28 +36,60 @@ class MyDrawer extends StatelessWidget {
           child: Container(
             color: Theme.of(context).primaryColor,
             padding: EdgeInsets.only(top: 40, bottom: 20),
-            child: Row(
+            width: double.infinity,
+            child: new Stack(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: ClipOval(
-                    // 如果已登录，则显示用户头像；若未登录，则显示默认头像
-                    child: value.hasUser
-                        ? Utils.gmAvatar(value.user.avatarUrl, width: 80)
-                        : Image.asset(
-                      "imgs/avatar-default.png",
-                      width: 80,
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ClipOval(
+                        // 如果已登录，则显示用户头像；若未登录，则显示默认头像
+                        child: value.hasUser
+                            ? Utils.gmAvatar(value.user.avatarUrl, width: 80)
+                            : Image.asset(
+                          "imgs/avatar-default.png",
+                          width: 60,
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 8.0),
+                        child: Text(
+                          value.hasUser
+                              ? value.user.login
+                              : GmLocalizations.of(context).login,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        )
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Offstage(
+                          offstage: !value.hasUser,
+                          child: Text(
+                            value.user.blog,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                    ),
+                  ],
                 ),
-                Text(
-                  value.hasUser
-                      ? value.user.login
-                      : GmLocalizations.of(context).login,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+
+                new Align(
+                  alignment: Alignment.topRight,
+                  child: new IconButton(
+                      icon: new Icon(Icons.edit, color: Colors.white),
+                      onPressed: (){
+                          Utils.showToast("编辑用户信息~");
+                      }),
                 )
               ],
             ),
@@ -77,6 +110,11 @@ class MyDrawer extends StatelessWidget {
         var gm = GmLocalizations.of(context);
         return ListView(
           children: <Widget>[
+            ListTile(
+              leading: const Icon(MyIcons.trend_icon),
+              title: Text(gm.trend),
+              onTap: () => Navigator.pushNamed(context, RouteName.trend),
+            ),
             ListTile(
               leading: const Icon(Icons.color_lens),
               title: Text(gm.theme),

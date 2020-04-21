@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfightgithub/data/models/TrendingRepoModel.dart';
 import 'package:flutterfightgithub/data/models/article.dart';
 import 'package:flutterfightgithub/provider/provider_widget.dart';
+import 'package:flutterfightgithub/res/style.dart';
 import 'package:flutterfightgithub/ui/widget/article_item.dart';
 import 'package:flutterfightgithub/ui/widget/home_header_item.dart';
 import 'package:flutterfightgithub/ui/widget/repo_item.dart';
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     children.add(HomeheaderItem(
       title: "最新趋势",
       titleColor: Colors.blueAccent,
-      leftIcon: Icons.whatshot,
+      leftIcon: MyIcons.trend_icon,
     ));
 
     children.addAll(_children);

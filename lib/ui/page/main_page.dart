@@ -9,24 +9,27 @@ import 'package:flutterfightgithub/ui/page/issue_page.dart';
 import 'package:flutterfightgithub/ui/page/my_drawer.dart';
 import 'package:flutterfightgithub/ui/page/project_page.dart';
 import 'package:flutterfightgithub/utils/utils.dart';
+import 'package:flutterfightgithub/view_model/user_model.dart';
+import 'package:provider/provider.dart';
 
 final List<String> _allPage = ["主页", "项目" , "动态", "issues" ];
 
 class MainPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    UserModel userModel = Provider.of<UserModel>(context, listen: false);
+
     return new DefaultTabController(
       length: _allPage.length,
       child: new Scaffold(
         appBar: new MyAppBar(
-          leading: new Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  Utils.getImgPath('ali_connors')
-                )
-              )
+          leading: ClipOval(
+            child: userModel.hasUser ?
+            Utils.gmAvatar(userModel.user.avatarUrl, width: 40)
+                : Image.asset(
+                    Utils.getImgPath('ali_connors'),
+                    width: 40,
             ),
           ),
           centerTitle: true,
