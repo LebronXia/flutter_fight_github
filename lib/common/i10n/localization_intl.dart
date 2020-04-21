@@ -43,6 +43,7 @@ class GmLocalizations{
   String get setting => Intl.message('设置', name: 'setting');
 
   String get theme => Intl.message('主题', name: 'theme');
+  String get trend => Intl.message("趋势", name: 'trend');
 
   String get userName => Intl.message('用户名', name: 'userName');
   String get userNameRequired => Intl.message("账号不能为空!" , name: 'userNameRequired');

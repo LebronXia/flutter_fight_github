@@ -11,8 +11,12 @@ class Config{
   static const String CLIENT_SECRET ='e2d5a8159e31c09ca61d89faa65a793284ee2a5d';
 
   static const PAGE_SIZE = 20;
+}
 
-
-  //SharedPreferences的key
-
+//页面状态
+class MyLoadStatus {
+  static const int fail = -1;
+  static const int loading = 0;
+  static const int success = 1;
+  static const int empty = 2;
 }

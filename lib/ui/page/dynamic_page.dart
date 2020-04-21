@@ -30,29 +30,32 @@ class _DynamicPageState extends State<DynamicPage>
         model: DynamicModel(),
         onModelReady: (model) => model.initData(_userModel.user.login),
         builder: (BuildContext context, DynamicModel model, Widget child) {
-
-          if(model.list.isEmpty){
-            return ProgressWidget(visibility: model.isLoading ?? false);
-          }
-
-          return SmartRefresher(
-            controller: model.refreshController,
-            header: WaterDropHeader(),
-            footer: ClassicFooter(),
-            onRefresh: () async{
-              model.refresh(_userModel.user.login);
-            },
-            onLoading: () async{
-              model.loadMore(_userModel.user.login);
-            },
-            child: ListView.builder(
-              itemCount: model.list.length,
+          return new Stack(
+            children: <Widget>[
+              new SmartRefresher(
+                controller: model.refreshController,
+                header: WaterDropHeader(),
+                footer: ClassicFooter(),
+                onRefresh: () async{
+                  model.refresh(_userModel.user.login);
+                },
+                onLoading: () async{
+                  model.loadMore(_userModel.user.login);
+                },
+                child: ListView.builder(
+                itemCount: model.list.length,
                 itemBuilder:(context, index){
-                  return DynamicItem(model.list[index]);
-                }
-
-            ),
+                return DynamicItem(model.list[index]);
+              }
+                ),
+              ),
+              new StatusViews(
+                model.viewStatus,
+                onTap: (){model.refresh(_userModel.user.login);},
+              ),
+            ],
           );
+
         },
 
     );

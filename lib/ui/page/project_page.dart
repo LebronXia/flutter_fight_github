@@ -21,26 +21,33 @@ class _ProjectPageState extends State<ProjectPage>
       onModelReady: (model) => model.refresh(),
       builder: (BuildContext context, ProjectModel model, Widget child) {
 
-        if(model.list.isEmpty){
-          return ProgressWidget(visibility: model.isLoading ?? false);
-        }
-
-        return SmartRefresher(
-          controller: model.refreshController,
-          header: WaterDropHeader(),
-          footer: ClassicFooter(),
-          onRefresh: model.refresh,
-          onLoading: model.loadMore,
-          //???
-          enablePullUp: true,
-          child: ListView.builder(
-            itemCount: model.list.length,
-              itemBuilder: (context, index){
-              Repo repo = model.list[index];
-                  return  RepoItem(repo);
-              }
-          ),
-        );
+          return Stack(
+            children: <Widget>[
+              new SmartRefresher(
+                controller: model.refreshController,
+                header: WaterDropHeader(),
+                footer: ClassicFooter(),
+                onRefresh: model.refresh,
+                onLoading: model.loadMore,
+                //???
+                enablePullUp: true,
+                child: ListView.builder(
+                itemCount: model.list.length,
+                itemBuilder: (context, index){
+                Repo repo = model.list[index];
+                return  RepoItem(repo);
+                }
+              ),
+              ),
+              new StatusViews(
+                model.viewStatus,
+                onTap: (){
+                  debugPrint("ProgressViews onRefresh......");
+                  model.refresh();
+                },
+              ),
+            ],
+          );
       },
     );
   }

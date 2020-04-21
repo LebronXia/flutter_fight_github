@@ -19,13 +19,14 @@ class UserModel extends ChangeNotifier{
 
   saveUser(User user){
     _user = user;
-    notifyListeners();
     StorageManager.localStorage.setItem(XUser, user);
+    notifyListeners();
   }
 
   clearUser(){
     _user = null;
     StorageManager.localStorage.deleteItem(XUser);
+    notifyListeners();
   }
 
 }

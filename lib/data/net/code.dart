@@ -18,12 +18,12 @@ class Code {
 
   static errorHandleFunction(code, message, noTip) {
     if (noTip) {
-      return message;
+      return new HttpErrorEvent(code, message);
     }
 
     //首页进行网络错误的提醒toast
     eventBus.fire(new HttpErrorEvent(code, message));
-    return message;
+    return new HttpErrorEvent(code, message);
   }
 }
 

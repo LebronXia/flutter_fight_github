@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutterfightgithub/common/config.dart';
 import 'package:flutterfightgithub/data/models/repo.dart';
 import 'package:flutterfightgithub/data/repository/home_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -27,34 +28,48 @@ class ProjectModel extends ChangeNotifier{
 
   bool get isLoading => _isLoading;
 
+  int _viewStatus;
+
+  int get viewStatus => _viewStatus;
+
   ///刷新
   Future<List<Repo>> refresh() async{
 
-    _isLoading = true;
+   // _isLoading = true;
+    _viewStatus = MyLoadStatus.loading;
 
     try{
       _currentPageNum = pageNumFirst;
 
       await HomeRepository.getRepos(_currentPageNum).then((res){
+
         if(res == null || !res.result){
           _list.clear();
           _refreshController.refreshCompleted();
+          _viewStatus = MyLoadStatus.fail;
         } else {
           _list.clear();
           _list.addAll(res.data);
           _refreshController.refreshCompleted();
 
-          //小于分页数量，禁止加载更多
-          if(res.data.length < pageSize){
-            _refreshController.loadNoData();
+          if(res.data.length == 0){
+            _viewStatus = MyLoadStatus.empty;
+            notifyListeners();
           } else {
-            _refreshController.loadComplete();
+            //小于分页数量，禁止加载更多
+            if(res.data.length < pageSize){
+              _refreshController.loadNoData();
+            } else {
+              _refreshController.loadComplete();
+            }
+            _isLoading = false;
+            _viewStatus = MyLoadStatus.success;
           }
-          _isLoading = false;
           notifyListeners();
           return res.data;
         }
       });
+
     } catch(e,s){
       _refreshController.refreshFailed();
       return null;

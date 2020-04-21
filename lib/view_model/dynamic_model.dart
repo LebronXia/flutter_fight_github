@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfightgithub/common/config.dart';
 import 'package:flutterfightgithub/data/models/event.dart';
 import 'package:flutterfightgithub/data/repository/home_repository.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -26,6 +27,11 @@ class DynamicModel extends ChangeNotifier{
 
   bool get isLoading => _isLoading;
 
+  ///界面状态
+  int _viewStatus;
+
+  int get viewStatus => _viewStatus;
+
   /// 第一次进入页面loading skeleton
   initData(username) async {
     await refresh(username);
@@ -33,7 +39,9 @@ class DynamicModel extends ChangeNotifier{
 
   Future<List<Event>> refresh(userName) async{
 
-    _isLoading = true;
+    //_isLoading = true;
+
+    _viewStatus = MyLoadStatus.loading;
 
     try{
       _currentPageNum = pageNumFirst;
@@ -42,21 +50,26 @@ class DynamicModel extends ChangeNotifier{
         if(res == null || !res.result){
           _list.clear();
           _refreshController.refreshCompleted();
+          _viewStatus = MyLoadStatus.fail;
         } else {
           _list.clear();
           _list.addAll(res.data);
           _refreshController.refreshCompleted();
 
-          //小于分页数量，禁止加载更多
-          if(res.data.length < pageSize){
-            _refreshController.loadNoData();
+          if(_list.length == 0){
+            _viewStatus = MyLoadStatus.empty;
           } else {
-            _refreshController.loadComplete();
+            //小于分页数量，禁止加载更多
+            if(res.data.length < pageSize){
+              _refreshController.loadNoData();
+            } else {
+              _refreshController.loadComplete();
+            }
+            _viewStatus = MyLoadStatus.success;
           }
-          _isLoading = false;
-          notifyListeners();
           return res.data;
         }
+        notifyListeners();
       });
     } catch(e, s){
 

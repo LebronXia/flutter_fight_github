@@ -6,6 +6,7 @@ import 'package:flutterfightgithub/ui/page/article_page.dart';
 import 'package:flutterfightgithub/ui/page/dynamic_page.dart';
 import 'package:flutterfightgithub/ui/page/home_page.dart';
 import 'package:flutterfightgithub/ui/page/issue_page.dart';
+import 'package:flutterfightgithub/ui/page/my_drawer.dart';
 import 'package:flutterfightgithub/ui/page/project_page.dart';
 import 'package:flutterfightgithub/utils/utils.dart';
 
@@ -40,9 +41,7 @@ class MainPage extends StatelessWidget {
           ],
         ),
         body: new TabBarViewLayout(),
-        drawer: new Drawer(
-          child: null,
-        ),
+        drawer: MyDrawer(),
       ),
     );
   }
