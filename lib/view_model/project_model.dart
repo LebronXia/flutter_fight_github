@@ -55,7 +55,6 @@ class ProjectModel extends ChangeNotifier{
 
           if(res.data.length == 0){
             _viewStatus = MyLoadStatus.empty;
-            notifyListeners();
           } else {
             //小于分页数量，禁止加载更多
             if(res.data.length < pageSize){
@@ -66,10 +65,10 @@ class ProjectModel extends ChangeNotifier{
             _isLoading = false;
             _viewStatus = MyLoadStatus.success;
           }
-
           notifyListeners();
           return res.data;
         }
+        notifyListeners();
       });
 
     } catch(e,s){

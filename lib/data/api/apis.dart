@@ -34,12 +34,19 @@ class GithubApi{
     return "https://guoshuyu.cn/github/trend/list?since=$since";
   }
 
-  ///Trending 趋势
-  static getTrending(since, languageType){
-    if (languageType != null) {
-      return "${host}trending/$languageType?since=$since";
-    }
-    return "${host}trending?since=$since";
+  ///趋势项目    TrendingManager
+  static getTrendingRepos(String language, String since) {
+    return 'https://github-trending-api.now.sh/repositories?language=$language&since=$since';
+  }
+
+  ///趋势用户
+  static getTrendingUser(String language, String since) {
+    return 'https://github-trending-api.now.sh/developers?language=$language&since=$since';
+  }
+
+  ///趋势语言
+  static getTrendingLanguage() {
+    return 'https://github-trending-api.now.sh/languages';
   }
 
   ///WanAndroid API

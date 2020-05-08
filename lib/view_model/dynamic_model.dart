@@ -59,7 +59,6 @@ class DynamicModel extends ChangeNotifier{
 
           if(_list.length == 0){
             _viewStatus = MyLoadStatus.empty;
-            notifyListeners();
           } else {
             //小于分页数量，禁止加载更多
             if(res.data.length < pageSize){
@@ -72,6 +71,7 @@ class DynamicModel extends ChangeNotifier{
           notifyListeners();
           return res.data;
         }
+        notifyListeners();
       });
     } catch(e, s){
 
